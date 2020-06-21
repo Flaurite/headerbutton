@@ -1,0 +1,5 @@
+@import "havana-ext";
+
+@mixin com_flaurite_addon_headerbutton {
+  @include com_flaurite_addon_headerbutton-havana-ext;
+}

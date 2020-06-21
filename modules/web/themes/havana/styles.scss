@@ -1,0 +1,11 @@
+@import "havana-defaults";
+@import "com.flaurite.addon.headerbutton/havana-ext-defaults";
+@import "app-components";
+@import "com.flaurite.addon.headerbutton/havana-ext";
+
+.havana {
+  // include auto-generated app components SCSS
+  @include app_components;
+
+  @include com_flaurite_addon_headerbutton-havana-ext;
+}
