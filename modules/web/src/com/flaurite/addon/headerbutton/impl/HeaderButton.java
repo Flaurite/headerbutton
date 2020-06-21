@@ -2,7 +2,11 @@ package com.flaurite.addon.headerbutton.impl;
 
 import com.flaurite.addon.headerbutton.ext.AttachableButton;
 import com.flaurite.addon.headerbutton.facet.HeaderButtonFacet;
+import com.haulmont.bali.util.Preconditions;
+import com.haulmont.cuba.gui.icons.CubaIcon;
+import com.haulmont.cuba.gui.screen.Screen;
 
+import java.util.EventObject;
 import java.util.function.Consumer;
 
 public class HeaderButton extends AttachableButton {
@@ -17,9 +21,10 @@ public class HeaderButton extends AttachableButton {
     protected Boolean sanitizeHtml;
     protected boolean descriptionAsHtml = false;
 
-    protected Consumer<HeaderButtonFacet.ButtonClickEvent> clickListener;
+    protected Consumer<ButtonClickEvent> clickListener;
 
     public HeaderButton(String id) {
+        Preconditions.checkNotNullArgument(id);
         this.id = id;
     }
 
@@ -28,10 +33,13 @@ public class HeaderButton extends AttachableButton {
     }
 
     public void setId(String id) {
+        Preconditions.checkNotNullArgument(id);
         this.id = id;
     }
 
     public HeaderButton withId(String id) {
+        Preconditions.checkNotNullArgument(id);
+
         this.id = id;
         return this;
     }
@@ -60,8 +68,19 @@ public class HeaderButton extends AttachableButton {
         markAsDirty();
     }
 
+    public void setIcon(CubaIcon icon) {
+        this.icon = icon.source();
+        markAsDirty();
+    }
+
     public HeaderButton withIcon(String icon) {
         this.icon = icon;
+        markAsDirty();
+        return this;
+    }
+
+    public HeaderButton withIcon(CubaIcon icon) {
+        this.icon = icon.source();
         markAsDirty();
         return this;
     }
@@ -107,15 +126,15 @@ public class HeaderButton extends AttachableButton {
         return this;
     }
 
-    public Consumer<HeaderButtonFacet.ButtonClickEvent> getClickListener() {
+    public Consumer<ButtonClickEvent> getClickListener() {
         return clickListener;
     }
 
-    public void setClickListener(Consumer<HeaderButtonFacet.ButtonClickEvent> clickListener) {
+    public void setClickListener(Consumer<ButtonClickEvent> clickListener) {
         this.clickListener = clickListener;
     }
 
-    public HeaderButton withClickListener(Consumer<HeaderButtonFacet.ButtonClickEvent> clickListener) {
+    public HeaderButton withClickListener(Consumer<ButtonClickEvent> clickListener) {
         this.clickListener = clickListener;
         return this;
     }
@@ -128,6 +147,29 @@ public class HeaderButton extends AttachableButton {
     protected void markAsDirty() {
         if (markAsDirtyListener != null) {
             markAsDirtyListener.accept(this);
+        }
+    }
+
+    public static class ButtonClickEvent extends EventObject {
+
+        protected HeaderButton button;
+
+        public ButtonClickEvent(Screen source, HeaderButton button) {
+            super(source);
+            this.button = button;
+        }
+
+        public HeaderButton getButton() {
+            return button;
+        }
+
+        public String getButtonId() {
+            return button.getId();
+        }
+
+        @Override
+        public Screen getSource() {
+            return (Screen) super.getSource();
         }
     }
 }

@@ -58,6 +58,9 @@ public class ScreenHeaderExtension extends AbstractExtension {
      * @param headerButtons
      */
     public void setHeaderButtons(List<HeaderButton> headerButtons) {
+        Preconditions.checkNotNullArgument(headerButtons);
+        ScreenHeaderTools.checkUniqueIds(headerButtons);
+
         hButtons = new ArrayList<>(headerButtons);
 
         for (HeaderButton hButton : hButtons) {
@@ -82,20 +85,22 @@ public class ScreenHeaderExtension extends AbstractExtension {
      * @param hButton
      */
     public void addHeaderButton(HeaderButton hButton) {
+        if (hButtons == null) {
+            hButtons = new ArrayList<>();
+        }
+
         addHeaderButton(hButtons.size(), hButton);
     }
 
     public void addHeaderButton(int position, HeaderButton hButton) {
         Preconditions.checkNotNullArgument(hButton);
-        if (position < 0) {
-            throw new IllegalArgumentException("Position is less than 0");
-        }
+        ScreenHeaderTools.checkUniqueId(hButtons, hButton.getId());
+        ScreenHeaderTools.checkPosition(position);
 
         if (hButtons == null) {
             hButtons = new ArrayList<>();
         }
 
-        // todo copy?
         ((AttachableButton) hButton).attache(this::recreateButton);
 
         hButtons.add(position, hButton);
@@ -199,7 +204,7 @@ public class ScreenHeaderExtension extends AbstractExtension {
             actionOptional.ifPresent(action -> {
                 if (action.getClickListener() != null) {
                     action.getClickListener().accept(
-                            new HeaderButtonFacet.ButtonClickEvent(screen, action));
+                            new HeaderButton.ButtonClickEvent(screen, action));
                 }
             });
         }
