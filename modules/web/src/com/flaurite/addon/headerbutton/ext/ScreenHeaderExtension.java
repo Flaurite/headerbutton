@@ -1,6 +1,5 @@
 package com.flaurite.addon.headerbutton.ext;
 
-import com.flaurite.addon.headerbutton.facet.HeaderButtonFacet;
 import com.flaurite.addon.headerbutton.impl.HeaderButton;
 import com.flaurite.addon.headerbutton.web.toolkit.ui.client.ClientHeaderButton;
 import com.flaurite.addon.headerbutton.web.toolkit.ui.client.ScreenHeaderServerRpc;
@@ -197,16 +196,14 @@ public class ScreenHeaderExtension extends AbstractExtension {
 
     protected void fireClickEvent(String buttonId) {
         if (hButtons != null && !hButtons.isEmpty()) {
-            Optional<HeaderButton> actionOptional = hButtons.stream()
+            Optional<HeaderButton> buttonOptional = hButtons.stream()
                     .filter(e -> e.getId().equals(buttonId))
                     .findFirst();
 
-            actionOptional.ifPresent(action -> {
-                if (action.getClickListener() != null) {
-                    action.getClickListener().accept(
-                            new HeaderButton.ButtonClickEvent(screen, action));
-                }
-            });
+            buttonOptional.ifPresent(hButton ->
+                    hButton.getEventHub().publish(
+                            HeaderButton.ButtonClickEvent.class,
+                            new HeaderButton.ButtonClickEvent(screen, hButton)));
         }
     }
 

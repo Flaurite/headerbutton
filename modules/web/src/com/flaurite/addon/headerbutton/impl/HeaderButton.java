@@ -1,7 +1,7 @@
 package com.flaurite.addon.headerbutton.impl;
 
 import com.flaurite.addon.headerbutton.ext.AttachableButton;
-import com.flaurite.addon.headerbutton.facet.HeaderButtonFacet;
+import com.haulmont.bali.events.Subscription;
 import com.haulmont.bali.util.Preconditions;
 import com.haulmont.cuba.gui.icons.CubaIcon;
 import com.haulmont.cuba.gui.screen.Screen;
@@ -21,7 +21,7 @@ public class HeaderButton extends AttachableButton {
     protected Boolean sanitizeHtml;
     protected boolean descriptionAsHtml = false;
 
-    protected Consumer<ButtonClickEvent> clickListener;
+    protected Consumer<ButtonClickEvent> clickHandler;
 
     public HeaderButton(String id) {
         Preconditions.checkNotNullArgument(id);
@@ -126,17 +126,28 @@ public class HeaderButton extends AttachableButton {
         return this;
     }
 
-    public Consumer<ButtonClickEvent> getClickListener() {
-        return clickListener;
+    public Consumer<ButtonClickEvent> getClickHandler() {
+        return clickHandler;
     }
 
-    public void setClickListener(Consumer<ButtonClickEvent> clickListener) {
-        this.clickListener = clickListener;
+    public void setClickHandler(Consumer<ButtonClickEvent> clickHandler) {
+        this.clickHandler = clickHandler;
+
+        getEventHub().subscribe(ButtonClickEvent.class, clickHandler);
     }
 
-    public HeaderButton withClickListener(Consumer<ButtonClickEvent> clickListener) {
-        this.clickListener = clickListener;
+    public HeaderButton withClickHandler(Consumer<ButtonClickEvent> clickHandler) {
+        this.clickHandler = clickHandler;
+
+        getEventHub().subscribe(ButtonClickEvent.class, clickHandler);
+
         return this;
+    }
+
+    public Subscription addClickListener(Consumer<ButtonClickEvent> clickListener) {
+        this.clickHandler = clickListener;
+
+        return getEventHub().subscribe(ButtonClickEvent.class, clickHandler);
     }
 
     @Override
