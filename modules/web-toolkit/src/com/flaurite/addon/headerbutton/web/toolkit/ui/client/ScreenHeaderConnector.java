@@ -19,17 +19,17 @@ import java.util.List;
 @Connect(ScreenHeaderExtension.class)
 public class ScreenHeaderConnector extends AbstractExtensionConnector {
 
-    public static final String WINDOW_STYLE = "t-window";
-    public static final String OUTERHEADER_STYLE = "t-outerheader";
+    public static final String WINDOW_STYLE = "h-window";
+    public static final String OUTERHEADER_STYLE = "h-outerheader";
 
-    public static final String BUTTON_STYLE = "t-header-action";
-    public static final String BUTTON_PRESSED_STYLE = "t-pressed";
-    public static final String BUTTON_ICON_STYLE = "t-icon";
-    public static final String BUTTON_CAPTION_STYLE = "t-caption";
+    public static final String BUTTON_STYLE = "h-button";
+    public static final String BUTTON_PRESSED_STYLE = "h-pressed";
+    public static final String BUTTON_ICON_STYLE = "h-icon";
+    public static final String BUTTON_CAPTION_STYLE = "h-caption";
 
-    public static final String CAPTION_STYLE = "t-action-caption";
-    public static final String ICON_STYLE = "t-action-icon";
-    public static final String TOOLTIP_STYLE = "t-tooltip";
+    public static final String CAPTION_STYLE = "h-button-caption";
+    public static final String ICON_STYLE = "h-button-icon";
+    public static final String TOOLTIP_STYLE = "h-tooltip";
 
     protected List<ButtonComposition> buttons = new ArrayList<>();
     protected CubaWindowWidget window;

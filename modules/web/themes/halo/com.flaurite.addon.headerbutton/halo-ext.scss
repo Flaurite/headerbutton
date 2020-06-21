@@ -1,74 +1,16 @@
-/* Define your theme modifications inside next mixin */
-
-// $t-header-action-hover-background-color: darken($c-window-header-background-color, 10%) !default;
-$t-header-action-hover-background-color: null !default;
-$t-header-action-pressed-background-color: null !default;
-
-// $t-header-border-: 1px solid #ccc8c8 !default;
-
-$t-header-action-padding-right: round($v-unit-size / 4) !default;
-$t-header-action-padding-left: round($v-unit-size / 4) !default;
-
-$t-tooltip-left-position: 25% !default;
-$t-tooltip-triangle-background-color: rgba(50,50,50,0.9) !default;
-$t-tooltip-max-height: 10em !default;
+@import "component/header-button";
+@import "component/tooltip";
 
 @mixin com_flaurite_addon_headerbutton-halo-ext {
 
- .c-app-dialog-window.t-window {
+@include headerbutton-button;
+@include headerbutton-tooltip;
+
+ .c-app-dialog-window.h-window {
    overflow: visible !important;
  }
 
- .t-header-action {
-   position: relative;
-   display: inline-block;
-   cursor: pointer;
-   height: $cuba-window-modal-header-height;
-   padding-left: $t-header-action-padding-left;
-   padding-right: $t-header-action-padding-right;
- }
-
- .t-header-action:last-child {
-   margin-right: $v-unit-size;
-//    border-right: 1px solid inherit;
- }
-
- .t-header-action:hover {
-   @if ($t-header-action-hover-background-color != null) {
-     background-color: $t-header-action-hover-background-color;
-   } @else {
-     $t-background-color: $cuba-window-modal-header-background;
-     @if ($t-background-color == null) {
-       $background-color: $v-table-background-color or valo-table-background-color();
-       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
-       $t-background-color: scale-color($background-color, $lightness: $bg-lightness);
-     }
-
-     background-color: darken($t-background-color, 5%);
-   }
- }
-
- .t-header-action.t-pressed {
-   @if ($t-header-action-pressed-background-color != null) {
-     background-color: $t-header-action-pressed-background-color;
-   } @else {
-     $t-background-color: $cuba-window-modal-header-background;
-     @if ($t-background-color == null) {
-       $background-color: $v-table-background-color or valo-table-background-color();
-       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
-       $t-background-color: scale-color($background-color, $lightness: $bg-lightness);
-     }
-
-     background-color: darken($t-background-color, 10%);
-   }
- }
-
- .t-header-action.t-icon:not(.t-caption) {
-   text-align: center;
-   width: $v-unit-size;
- }
-
- .v-window-outerheader.t-outerheader {
+ .v-window-outerheader.h-outerheader {
    display: flex;
 
    .v-window-header {
@@ -76,41 +18,9 @@ $t-tooltip-max-height: 10em !default;
    }
  }
 
- .t-tooltip {
-   cursor: auto;
-   position: absolute;
-   left: $t-tooltip-left-position;
-   top: $cuba-window-modal-header-height + 5px;
-   visibility: hidden;
-   transition-delay: .2s;
-   transition-duration: .1s;
-   transition-timing-function: linear;
-   max-height: $t-tooltip-max-height;
-
-   @include valo-tooltip-style();
-
-   overflow: auto !important;
- }
-
- .t-tooltip h1,
- .t-tooltip h2,
- .t-tooltip h3,
- .t-tooltip h4 {
-   color: inherit;
- }
-
- .t-action-icon,
- .t-action-caption {
+ .h-button-icon,
+ .h-button-caption {
    line-height: $cuba-window-modal-header-buttons-line-height;
    pointer-events: none;
- }
-
- .t-header-action.t-show-description {
-   .t-tooltip {
-     visibility: visible;
-     transition-delay: .7s;
-     transition-duration: .3s;
-     transition-timing-function: linear;
-   }
  }
 }

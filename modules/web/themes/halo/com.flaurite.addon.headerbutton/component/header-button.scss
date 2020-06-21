@@ -1,0 +1,65 @@
+$h-button-padding-right: round($v-unit-size / 4) !default;
+$h-button-padding-left: round($v-unit-size / 4) !default;
+
+$h-button-hover-background-color: null !default;
+$h-button-pressed-background-color: null !default;
+
+@mixin headerbutton-button($primary-stylename: h-button) {
+
+ .#{$primary-stylename} {
+   position: relative;
+   display: inline-block;
+   cursor: pointer;
+   height: $cuba-window-modal-header-height;
+   padding-left: $h-button-padding-left;
+   padding-right: $h-button-padding-right;
+ }
+
+ .#{$primary-stylename}:last-child {
+   margin-right: $v-unit-size;
+ }
+
+ .#{$primary-stylename}:hover {
+   @if ($h-button-hover-background-color != null) {
+     background-color: $h-button-hover-background-color;
+   } @else {
+     $h-background-color: $cuba-window-modal-header-background;
+     @if ($h-background-color == null) {
+       $background-color: $v-table-background-color or valo-table-background-color();
+       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
+       $h-background-color: scale-color($background-color, $lightness: $bg-lightness);
+     }
+
+     background-color: darken($h-background-color, 5%);
+   }
+  }
+
+ .#{$primary-stylename}.h-pressed {
+   @if ($h-button-pressed-background-color != null) {
+     background-color: $h-button-pressed-background-color;
+   } @else {
+     $h-background-color: $cuba-window-modal-header-background;
+     @if ($h-background-color == null) {
+       $background-color: $v-table-background-color or valo-table-background-color();
+       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
+       $h-background-color: scale-color($background-color, $lightness: $bg-lightness);
+     }
+
+     background-color: darken($h-background-color, 10%);
+   }
+ }
+
+ .#{$primary-stylename}.h-icon:not(.h-caption) {
+   text-align: center;
+   width: $v-unit-size;
+ }
+
+ .#{$primary-stylename}.t-show-description {
+   .h-tooltip {
+     visibility: visible;
+     transition-delay: .7s;
+     transition-duration: .3s;
+     transition-timing-function: linear;
+   }
+ }
+}
