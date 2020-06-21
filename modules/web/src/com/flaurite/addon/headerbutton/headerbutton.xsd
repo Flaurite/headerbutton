@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns="http://schemas.headerbutton/headerbutton/0.1/headerbutton.xsd"
+           xmlns:window="http://schemas.haulmont.com/cuba/screen/layout.xsd"
+           attributeFormDefault="unqualified"
+           elementFormDefault="qualified"
+           targetNamespace="http://schemas.headerbutton/headerbutton/0.1/headerbutton.xsd"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="headerButtons" type="headerButtonsFacet"/>
+
+    <xs:complexType name="headerButtonsFacet">
+        <xs:sequence>
+            <xs:element name="button" maxOccurs="unbounded" type="headerButton"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="headerButton">
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="caption" type="window:resourceString"/>
+        <xs:attribute name="description" type="window:resourceString"/>
+        <xs:attribute name="descriptionAsHtml" type="xs:boolean"/>
+        <xs:attribute name="icon" type="xs:string"/>
+        <xs:attribute name="sanitizeHtml" type="xs:boolean"/>
+    </xs:complexType>
+</xs:schema>
