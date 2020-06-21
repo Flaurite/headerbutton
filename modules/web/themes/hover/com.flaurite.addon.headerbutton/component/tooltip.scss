@@ -1,0 +1,28 @@
+$h-tooltip-left-position: 25% !default;
+$h-tooltip-max-height: 10em !default;
+
+@mixin headerbutton-tooltip($primary-stylename: h-tooltip){
+
+ .#{$primary-stylename} {
+   cursor: auto;
+   position: absolute;
+   left: $h-tooltip-left-position;
+   top: $cuba-window-modal-header-height + 5px;
+   visibility: hidden;
+   transition-delay: .2s;
+   transition-duration: .1s;
+   transition-timing-function: linear;
+   max-height: $h-tooltip-max-height;
+
+   @include valo-tooltip-style();
+
+   overflow: auto !important;
+ }
+
+ .#{$primary-stylename} h1,
+ .#{$primary-stylename} h2,
+ .#{$primary-stylename} h3,
+ .#{$primary-stylename} h4 {
+   color: inherit;
+ }
+}

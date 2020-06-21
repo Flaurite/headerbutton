@@ -1,0 +1,26 @@
+@import "component/header-button";
+@import "component/tooltip";
+
+@mixin com_flaurite_addon_headerbutton-hover-ext {
+
+@include headerbutton-button;
+@include headerbutton-tooltip;
+
+ .c-app-dialog-window.h-window {
+   overflow: visible !important;
+ }
+
+ .v-window-outerheader.h-outerheader {
+   display: flex;
+
+   .v-window-header {
+     flex-basis: 100%;
+   }
+ }
+
+ .h-button-icon,
+ .h-button-caption {
+   line-height: $cuba-window-modal-header-buttons-line-height;
+   pointer-events: none;
+ }
+}
