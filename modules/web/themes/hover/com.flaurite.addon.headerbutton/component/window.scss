@@ -1,0 +1,14 @@
+@mixin headerbutton-window() {
+
+   .c-app-dialog-window.h-window {
+     overflow: visible !important;
+   }
+
+   .v-window-outerheader.h-outerheader {
+     display: flex;
+
+     .v-window-header {
+       flex-basis: 100%;
+     }
+   }
+}

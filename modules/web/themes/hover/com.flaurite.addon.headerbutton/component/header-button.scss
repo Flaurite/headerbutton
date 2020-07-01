@@ -2,7 +2,13 @@ $h-button-padding-right: round($v-unit-size / 4) !default;
 $h-button-padding-left: round($v-unit-size / 4) !default;
 
 $h-button-hover-background-color: null !default;
+$h-button-hover-color: null !default;
+
 $h-button-pressed-background-color: null !default;
+$h-button-pressed-color: null !default;
+
+$h-button-background-color: null !default;
+$h-button-color: null !default;
 
 @mixin headerbutton-button($primary-stylename: h-button) {
 
@@ -13,6 +19,14 @@ $h-button-pressed-background-color: null !default;
    height: $cuba-window-modal-header-height;
    padding-left: $h-button-padding-left;
    padding-right: $h-button-padding-right;
+
+   background-color: $h-button-background-color;
+
+   @if ($h-button-color != null) {
+     color: $h-button-color;
+   } @else {
+     color: valo-font-color($h-button-background-color, 0.8);
+   }
  }
 
  .#{$primary-stylename}:last-child {
@@ -20,33 +34,11 @@ $h-button-pressed-background-color: null !default;
  }
 
  .#{$primary-stylename}:hover {
-   @if ($h-button-hover-background-color != null) {
-     background-color: $h-button-hover-background-color;
-   } @else {
-     $h-background-color: $cuba-window-modal-header-background;
-     @if ($h-background-color == null) {
-       $background-color: $v-table-background-color or valo-table-background-color();
-       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
-       $h-background-color: scale-color($background-color, $lightness: $bg-lightness);
-     }
-
-     background-color: darken($h-background-color, 5%);
-   }
+   @include header-button-colors($h-button-hover-background-color, $h-button-hover-color, 5%);
   }
 
  .#{$primary-stylename}.h-pressed {
-   @if ($h-button-pressed-background-color != null) {
-     background-color: $h-button-pressed-background-color;
-   } @else {
-     $h-background-color: $cuba-window-modal-header-background;
-     @if ($h-background-color == null) {
-       $background-color: $v-table-background-color or valo-table-background-color();
-       $bg-lightness: if(color-luminance($background-color) < 10, 4%, -4%);
-       $h-background-color: scale-color($background-color, $lightness: $bg-lightness);
-     }
-
-     background-color: darken($h-background-color, 10%);
-   }
+   @include header-button-colors($h-button-pressed-background-color, $h-button-pressed-color, 10%);
  }
 
  .#{$primary-stylename}.h-icon:not(.h-caption) {
@@ -61,5 +53,33 @@ $h-button-pressed-background-color: null !default;
      transition-duration: .3s;
      transition-timing-function: linear;
    }
+ }
+
+ .#{$primary-stylename}-icon,
+ .#{$primary-stylename}-caption {
+   line-height: $cuba-window-modal-header-buttons-line-height;
+   pointer-events: none;
+ }
+}
+
+@mixin header-button-colors($bg-color, $color, $darkness) {
+ $h-background-color: null;
+ @if ($bg-color != null) {
+   $h-background-color: $bg-color;
+
+ } @else if($cuba-window-modal-header-background != null) {
+   $h-background-color: $cuba-window-modal-header-background;
+
+ } @else if ($h-background-color == null) {
+   $h-background-color: $v-background-color;
+ }
+
+ $bck: darken($h-background-color, $darkness);
+ background-color: $bck;
+
+ @if ($color != null) {
+   color: $color;
+ } @else {
+   color: valo-font-color($bck, 0.8);
  }
 }
