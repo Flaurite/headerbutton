@@ -17,6 +17,7 @@ public class HeaderButton extends AttachableButton {
     protected String caption;
     protected String icon;
     protected String description;
+    protected String styleName;
 
     protected Boolean sanitizeHtml;
     protected boolean descriptionAsHtml = false;
@@ -96,6 +97,22 @@ public class HeaderButton extends AttachableButton {
 
     public HeaderButton withDescription(String description) {
         this.description = description;
+        markAsDirty();
+        return this;
+    }
+
+    public String getStyleName() {
+        return styleName;
+    }
+
+    public HeaderButton setStyleName(String styleName) {
+        this.styleName = styleName;
+        markAsDirty();
+        return this;
+    }
+
+    public HeaderButton withtStyleName(String styleName) {
+        this.styleName = styleName;
         markAsDirty();
         return this;
     }

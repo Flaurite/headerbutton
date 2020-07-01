@@ -5,6 +5,7 @@ import com.google.common.base.Strings;
 import com.haulmont.cuba.core.global.MessageTools;
 import com.haulmont.cuba.gui.xml.FacetProvider;
 import com.haulmont.cuba.gui.xml.layout.ComponentLoader;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Element;
 import org.springframework.stereotype.Component;
 
@@ -80,6 +81,11 @@ public class HeaderButtonFacetProvider implements FacetProvider<HeaderButtonFace
             String sanitize = actionElem.attributeValue("sanitizeHtml");
             if (sanitize != null) {
                 action.setSanitizeHtml(Boolean.parseBoolean(sanitize));
+            }
+
+            String styleName = actionElem.attributeValue("styleName");
+            if (StringUtils.isNotBlank(styleName)) {
+                action.setStyleName(styleName);
             }
 
             actions.add(action);

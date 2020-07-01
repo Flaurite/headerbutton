@@ -151,6 +151,7 @@ public class ScreenHeaderExtension extends AbstractExtension {
         ClientHeaderButton clientButton = new ClientHeaderButton();
         clientButton.setId(hButton.getId());
         clientButton.setCaption(hButton.getCaption());
+        clientButton.setStyleName(hButton.getStyleName());
 
         boolean sanitize = false;
         if (hButton.isDescriptionAsHtml()) {

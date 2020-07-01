@@ -8,6 +8,7 @@ public class ClientHeaderButton implements Serializable {
     protected String caption;
     protected String icon;
     protected String description;
+    protected String styleName;
 
     protected boolean descriptionAsHtml = false;
 
@@ -52,5 +53,13 @@ public class ClientHeaderButton implements Serializable {
 
     public void setDescriptionAsHtml(boolean descriptionAsHtml) {
         this.descriptionAsHtml = descriptionAsHtml;
+    }
+
+    public String getStyleName() {
+        return styleName;
+    }
+
+    public void setStyleName(String styleName) {
+        this.styleName = styleName;
     }
 }

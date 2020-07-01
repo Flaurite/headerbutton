@@ -90,6 +90,10 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
             addWindowDescriptionStyle(connector);
         }
 
+        if (button.getStyleName() != null) {
+            toolBarBtn.addClassName(button.getStyleName());
+        }
+
         // todo check
         // Make the header button accessible for assistive devices
         Roles.getButtonRole().set(toolBarBtn);

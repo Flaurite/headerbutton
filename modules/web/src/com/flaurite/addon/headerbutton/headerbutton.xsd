@@ -22,5 +22,6 @@
         <xs:attribute name="descriptionAsHtml" type="xs:boolean"/>
         <xs:attribute name="icon" type="xs:string"/>
         <xs:attribute name="sanitizeHtml" type="xs:boolean"/>
+        <xs:attribute name="styleName" type="xs:string"/>
     </xs:complexType>
 </xs:schema>
