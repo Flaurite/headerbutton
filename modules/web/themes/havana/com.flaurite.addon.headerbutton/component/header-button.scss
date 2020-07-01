@@ -47,6 +47,10 @@ $h-button-color: #ffffff !default; // havana specific
    text-align: center;
    width: $v-unit-size;
    line-height: $cuba-window-modal-header-buttons-line-height; // havana specific
+
+   .v-ie & {
+     width: $v-unit-size * 2 + ($h-button-padding-right * 2) + ($h-button-padding-left * 2);
+   }
  }
 
  .#{$primary-stylename}.t-show-description {

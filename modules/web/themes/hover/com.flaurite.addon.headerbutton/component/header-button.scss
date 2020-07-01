@@ -44,6 +44,10 @@ $h-button-color: null !default;
  .#{$primary-stylename}.h-icon:not(.h-caption) {
    text-align: center;
    width: $v-unit-size;
+
+   .v-ie & {
+     width: $v-unit-size * 2 + ($h-button-padding-right * 2) + ($h-button-padding-left * 2);
+   }
  }
 
  .#{$primary-stylename}.t-show-description {
