@@ -20,6 +20,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
+/**
+ * Header button extension. Creates an extension of dialog window and adds buttons to the header.
+ */
 public class ScreenHeaderExtension extends AbstractExtension {
 
     protected HtmlSanitizer sanitizer;
@@ -31,6 +34,15 @@ public class ScreenHeaderExtension extends AbstractExtension {
     protected KeyMapper<Resource> iconsKeyMapper = new KeyMapper<>();
     protected Set<String> iconsKey = new HashSet<>();
 
+    /**
+     * Screen should be created as dialog, for instance:
+     * <pre>{@code
+     * OrderEdit orderEdit = screens.create(OrderEdit.class, OpenMode.DIALOG);
+     * ScreenHeaderExtension extension = new ScreenHeaderExtension(orderEdit);
+     * }</pre>
+     *
+     * @param screen dialog screen
+     */
     public ScreenHeaderExtension(Screen screen) {
         Preconditions.checkNotNullArgument(screen);
 
@@ -54,7 +66,9 @@ public class ScreenHeaderExtension extends AbstractExtension {
     }
 
     /**
-     * @param headerButtons
+     * Sets list of header buttons. If extension contains buttons, they will be replaced.
+     *
+     * @param headerButtons list of header buttons
      */
     public void setHeaderButtons(List<HeaderButton> headerButtons) {
         Preconditions.checkNotNullArgument(headerButtons);
@@ -70,7 +84,7 @@ public class ScreenHeaderExtension extends AbstractExtension {
     }
 
     /**
-     * @return
+     * @return current list of buttons in the dialog header
      */
     public List<HeaderButton> getHeaderButtons() {
         if (hButtons == null) {
@@ -81,7 +95,22 @@ public class ScreenHeaderExtension extends AbstractExtension {
     }
 
     /**
-     * @param hButton
+     * Adds a button to the dialog header.
+     * <p>
+     * <br>
+     * Example:
+     * <pre>{@code
+     * extension.addHeaderButton(new HeaderButton("infoBtn")
+     *         .withCaption("Info")
+     *         .withIcon(CubaIcon.INFO)
+     *         .withClickHandler(clickEvent -> {
+     *             notifications.create()
+     *                     .withCaption("Info dialog")
+     *                     .show();
+     *         }));
+     * }</pre>
+     *
+     * @param hButton header button
      */
     public void addHeaderButton(HeaderButton hButton) {
         if (hButtons == null) {
@@ -91,6 +120,24 @@ public class ScreenHeaderExtension extends AbstractExtension {
         addHeaderButton(hButtons.size(), hButton);
     }
 
+    /**
+     * Adds a button to the dialog header at a position index. 0 - index is a leftmost position in the header.
+     * <p>
+     * <br>
+     * Example:
+     * <pre>{@code
+     * extension.addHeaderButton(0, new HeaderButton("infoBtn")
+     *         .withCaption("Info")
+     *         .withIcon(CubaIcon.INFO)
+     *         .withClickHandler(clickEvent -> {
+     *             notifications.create()
+     *                     .withCaption("Info dialog")
+     *                     .show();
+     *         }));
+     * }</pre>
+     *
+     * @param hButton header button
+     */
     public void addHeaderButton(int position, HeaderButton hButton) {
         Preconditions.checkNotNullArgument(hButton);
         ScreenHeaderTools.checkUniqueId(hButtons, hButton.getId());
@@ -107,7 +154,9 @@ public class ScreenHeaderExtension extends AbstractExtension {
     }
 
     /**
-     * @param id
+     * Removes button by its id
+     *
+     * @param id button's id
      */
     public void removeHeaderButton(String id) {
         if (CollectionUtils.isEmpty(hButtons)) {

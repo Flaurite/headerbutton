@@ -9,6 +9,9 @@ import com.haulmont.cuba.gui.screen.Screen;
 import java.util.EventObject;
 import java.util.function.Consumer;
 
+/**
+ * Describes a button that can be added to the dialog header.
+ */
 public class HeaderButton extends AttachableButton {
 
     protected Consumer<HeaderButton> markAsDirtyListener;
@@ -24,6 +27,9 @@ public class HeaderButton extends AttachableButton {
 
     protected Consumer<ButtonClickEvent> clickHandler;
 
+    /**
+     * @param id button's id, not null
+     */
     public HeaderButton(String id) {
         Preconditions.checkNotNullArgument(id);
         this.id = id;
@@ -49,11 +55,22 @@ public class HeaderButton extends AttachableButton {
         return caption;
     }
 
+    /**
+     * Sets button's caption. If is used in runtime, button will be recreated with new caption.
+     *
+     * @param caption button's caption
+     */
     public void setCaption(String caption) {
         this.caption = caption;
         markAsDirty();
     }
 
+    /**
+     * Sets button's caption. If is used in runtime, button will be recreated with new caption.
+     *
+     * @param caption button's caption
+     * @return current instance
+     */
     public HeaderButton withCaption(String caption) {
         this.caption = caption;
         markAsDirty();
@@ -64,22 +81,54 @@ public class HeaderButton extends AttachableButton {
         return icon;
     }
 
+    /**
+     * Sets button's icon. If is used in runtime, button will be recreated with new icon. Example:
+     * <ul>
+     *     <li>BITCOIN</li>
+     *     <li>font-icon:BITCOIN</li>
+     *     <li>icons/chain.png</li>
+     * </ul>
+     *
+     * @param icon icon source or name
+     */
     public void setIcon(String icon) {
         this.icon = icon;
         markAsDirty();
     }
 
+    /**
+     * Sets button's icon. If is used in runtime, button will be recreated with new icon.
+     *
+     * @param icon icon
+     */
     public void setIcon(CubaIcon icon) {
         this.icon = icon.source();
         markAsDirty();
     }
 
+    /**
+     * Sets button's icon. If is used in runtime, button will be recreated with new icon. Example:
+     * <ul>
+     *     <li>BITCOIN</li>
+     *     <li>font-icon:BITCOIN</li>
+     *     <li>icons/chain.png</li>
+     * </ul>
+     *
+     * @param icon icon source or name
+     * @return current instance
+     */
     public HeaderButton withIcon(String icon) {
         this.icon = icon;
         markAsDirty();
         return this;
     }
 
+    /**
+     * Sets button's icon. If is used in runtime, button will be recreated with new icon.
+     *
+     * @param icon icon
+     * @return current instance
+     */
     public HeaderButton withIcon(CubaIcon icon) {
         this.icon = icon.source();
         markAsDirty();
@@ -90,11 +139,22 @@ public class HeaderButton extends AttachableButton {
         return description;
     }
 
+    /**
+     * Sets button's description. If is used in runtime, button will be recreated with new description.
+     *
+     * @param description description
+     */
     public void setDescription(String description) {
         this.description = description;
         markAsDirty();
     }
 
+    /**
+     * Sets button's description. If is used in runtime, button will be recreated with new description.
+     *
+     * @param description description
+     * @return current instance
+     */
     public HeaderButton withDescription(String description) {
         this.description = description;
         markAsDirty();
@@ -105,12 +165,22 @@ public class HeaderButton extends AttachableButton {
         return styleName;
     }
 
-    public HeaderButton setStyleName(String styleName) {
+    /**
+     * Sets button's styleName. If is used in runtime, button will be recreated with new styleName.
+     *
+     * @param styleName styleName
+     */
+    public void setStyleName(String styleName) {
         this.styleName = styleName;
         markAsDirty();
-        return this;
     }
 
+    /**
+     * Sets button's styleName. If is used in runtime, button will be recreated with new styleName.
+     *
+     * @param styleName styleName
+     * @return current instance
+     */
     public HeaderButton withtStyleName(String styleName) {
         this.styleName = styleName;
         markAsDirty();
