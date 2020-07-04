@@ -40,4 +40,17 @@ public class ButtonComposition {
     public void setDescription(Element description) {
         this.description = description;
     }
+
+    public boolean isButtonDisabled() {
+        return button == null || button.getPropertyBoolean("disabled");
+    }
+
+    public void addButtonStyleIfNotDisabled(String styleName) {
+        if (isButtonDisabled()) {
+            return;
+        }
+
+        button.removeClassName(styleName);
+        button.addClassName(styleName);
+    }
 }

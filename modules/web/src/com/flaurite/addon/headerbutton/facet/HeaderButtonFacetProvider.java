@@ -48,50 +48,55 @@ public class HeaderButtonFacetProvider implements FacetProvider<HeaderButtonFace
         id.ifPresent(facet::setId);
 
         List<HeaderButton> buttons = loadButtons(element, context);
-        ((WebHeaderButtonFacet)facet).setLoadedButtons(buttons);
+        ((WebHeaderButtonFacet) facet).setLoadedButtons(buttons);
     }
 
     protected List<HeaderButton> loadButtons(Element element, ComponentLoader.ComponentContext context) {
-        List<HeaderButton> actions = new ArrayList<>();
+        List<HeaderButton> buttons = new ArrayList<>();
 
-        for (Element actionElem : element.elements("button")) {
-            String id = actionElem.attributeValue("id");
+        for (Element btnElem : element.elements("button")) {
+            String id = btnElem.attributeValue("id");
             if (Strings.isNullOrEmpty(id)) {
                 continue;
             }
 
-            HeaderButton action = new HeaderButton(id);
+            HeaderButton button = new HeaderButton(id);
 
-            String caption = actionElem.attributeValue("caption");
-            action.withCaption(loadResourceString(context, caption));
+            String caption = btnElem.attributeValue("caption");
+            button.withCaption(loadResourceString(context, caption));
 
-            String icon = actionElem.attributeValue("icon");
+            String icon = btnElem.attributeValue("icon");
             if (!Strings.isNullOrEmpty(icon)) {
-                action.withIcon(iconsLoader.getIconPath(context, icon));
+                button.withIcon(iconsLoader.getIconPath(context, icon));
             }
 
-            String description = actionElem.attributeValue("description");
-            action.withDescription(loadResourceString(context, description));
+            String description = btnElem.attributeValue("description");
+            button.withDescription(loadResourceString(context, description));
 
-            String descriptionAsHtml = actionElem.attributeValue("descriptionAsHtml");
+            String descriptionAsHtml = btnElem.attributeValue("descriptionAsHtml");
             if (descriptionAsHtml != null) {
-                action.withDescriptionAsHtml(Boolean.parseBoolean(descriptionAsHtml));
+                button.withDescriptionAsHtml(Boolean.parseBoolean(descriptionAsHtml));
             }
 
-            String sanitize = actionElem.attributeValue("sanitizeHtml");
+            String sanitize = btnElem.attributeValue("sanitizeHtml");
             if (sanitize != null) {
-                action.setSanitizeHtml(Boolean.parseBoolean(sanitize));
+                button.setSanitizeHtml(Boolean.parseBoolean(sanitize));
             }
 
-            String styleName = actionElem.attributeValue("styleName");
+            String enabled = btnElem.attributeValue("enabled");
+            if (enabled != null) {
+                button.setEnabled(Boolean.parseBoolean(enabled));
+            }
+
+            String styleName = btnElem.attributeValue("styleName");
             if (StringUtils.isNotBlank(styleName)) {
-                action.setStyleName(styleName);
+                button.setStyleName(styleName);
             }
 
-            actions.add(action);
+            buttons.add(button);
         }
 
-        return actions;
+        return buttons;
     }
 
     protected Optional<String> loadId(Element element) {

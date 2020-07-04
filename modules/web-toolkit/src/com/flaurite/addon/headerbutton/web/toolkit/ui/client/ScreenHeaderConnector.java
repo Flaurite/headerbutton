@@ -23,7 +23,9 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
     public static final String OUTERHEADER_STYLE = "h-outerheader";
 
     public static final String BUTTON_STYLE = "h-button";
+    public static final String BUTTON_DISABLED_STYLE = "h-disabled";
     public static final String BUTTON_PRESSED_STYLE = "h-pressed";
+    public static final String BUTTON_HOVER_STYLE = "h-hover";
     public static final String BUTTON_ICON_STYLE = "h-icon";
     public static final String BUTTON_CAPTION_STYLE = "h-caption";
 
@@ -92,6 +94,12 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
 
         if (button.getStyleName() != null) {
             toolBarBtn.addClassName(button.getStyleName());
+        }
+
+        // if disabled
+        if (!button.isEnabled()) {
+            toolBarBtn.setPropertyBoolean("disabled", !button.isEnabled());
+            toolBarBtn.addClassName(BUTTON_DISABLED_STYLE);
         }
 
         // todo check
@@ -170,12 +178,12 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
             return;
         }
 
+        // do not show description if button has been clicked
         descriptionManager.cancelLazyShowing();
 
-        // remove if exists
-        composition.getButton().removeClassName(BUTTON_PRESSED_STYLE);
-        composition.getButton().addClassName(BUTTON_PRESSED_STYLE);
+        composition.addButtonStyleIfNotDisabled(BUTTON_PRESSED_STYLE);
 
+        // stop propagation because we can move window on pressed button
         event.stopPropagation();
     }
 
@@ -194,7 +202,13 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
             return;
         }
 
+        // do not show description if button has been clicked
         descriptionManager.cancelLazyShowing();
+
+        // do not send click event if button is disabled
+        if (composition.isButtonDisabled()) {
+            return;
+        }
 
         ClientHeaderButton toolbarButton = getState().buttons.get(buttons.indexOf(composition));
         getRpcProxy(ScreenHeaderServerRpc.class).buttonClicked(toolbarButton.getId());
@@ -215,7 +229,9 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
             return;
         }
 
+        // launch showing description
         descriptionManager.show(composition);
+        composition.addButtonStyleIfNotDisabled(BUTTON_HOVER_STYLE);
     }
 
     protected void onButtonMouseOutEvent(Event event) {
@@ -229,8 +245,9 @@ public class ScreenHeaderConnector extends AbstractExtensionConnector {
             return;
         }
 
+        // do not show description if cursor moved out
         descriptionManager.cancelLazyShowing();
-
+        composition.getButton().removeClassName(BUTTON_HOVER_STYLE);
         composition.getButton().removeClassName(BUTTON_PRESSED_STYLE);
     }
 

@@ -35,7 +35,7 @@ $h-button-color: #ffffff !default; // havana specific
    margin-right: $v-unit-size;
  }
 
- .#{$primary-stylename}:hover {
+ .#{$primary-stylename}.h-hover {
    @include header-button-colors($h-button-hover-background-color, $h-button-hover-color, 5%);
   }
 
@@ -67,8 +67,15 @@ $h-button-color: #ffffff !default; // havana specific
    line-height: $cuba-window-modal-header-buttons-line-height;
    pointer-events: none;
  }
+
+ .#{$primary-stylename}.h-disabled {
+   opacity: 0.5;
+ }
 }
 
+/**
+ * Choose background-color and font color of button.
+ */
 @mixin header-button-colors($bg-color, $color, $darkness) {
  $h-background-color: null;
  @if ($bg-color != null) {

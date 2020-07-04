@@ -24,6 +24,7 @@ public class HeaderButton extends AttachableButton {
 
     protected Boolean sanitizeHtml;
     protected boolean descriptionAsHtml = false;
+    protected boolean enabled = true;
 
     protected Consumer<ButtonClickEvent> clickHandler;
 
@@ -206,6 +207,21 @@ public class HeaderButton extends AttachableButton {
 
     public void setDescriptionAsHtml(boolean descriptionAsHtml) {
         this.descriptionAsHtml = descriptionAsHtml;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        markAsDirty();
+    }
+
+    public HeaderButton withEnabled(boolean enabled) {
+        this.enabled = enabled;
+        markAsDirty();
+        return this;
     }
 
     public HeaderButton withDescriptionAsHtml(boolean descriptionAsHtml) {

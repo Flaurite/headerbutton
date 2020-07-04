@@ -9,6 +9,7 @@ public class ClientHeaderButton implements Serializable {
     protected String icon;
     protected String description;
     protected String styleName;
+    protected boolean enabled = true;
 
     protected boolean descriptionAsHtml = false;
 
@@ -61,5 +62,13 @@ public class ClientHeaderButton implements Serializable {
 
     public void setStyleName(String styleName) {
         this.styleName = styleName;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
