@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<app-component xmlns="http://schemas.haulmont.com/cuba/app-component.xsd"
+               dependsOn="com.haulmont.cuba">
+
+    <module name="global" blocks="*">
+        <artifact name="headerbutton-global" appJar="true"/>
+
+        <property name="cuba.persistenceConfig" value="+com/flaurite/addon/headerbutton/persistence.xml"/>
+        <property name="cuba.metadataConfig" value="+com/flaurite/addon/headerbutton/metadata.xml"/>
+        <property name="cuba.viewsConfig" value="+com/flaurite/addon/headerbutton/views.xml"/>
+    </module>
+    <module name="core" dependsOn="global" blocks="core">
+        <artifact name="headerbutton-core" appJar="true"/>
+        <artifact name="headerbutton-core" classifier="db" ext="zip" configuration="dbscripts"/>
+
+        <property name="cuba.springContextConfig" value="+com/flaurite/addon/headerbutton/spring.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.flaurite.addon.headerbutton.core"/>
+    </module>
+    <module name="web" dependsOn="global" blocks="web">
+        <artifact name="headerbutton-web" appJar="true"/>
+        <artifact name="headerbutton-web" classifier="web" ext="zip" configuration="webcontent"/>
+        <artifact name="headerbutton-web-toolkit" appJar="true" classifier="client" ext="jar"
+                  skipIfExists="web-toolkit"/>
+        <artifact name="headerbutton-web" ext="jar" configuration="themes" classifier="themes"/>
+
+        <property name="cuba.springContextConfig" value="+com/flaurite/addon/headerbutton/web-spring.xml"/>
+        <property name="cuba.dispatcherSpringContextConfig"
+                  value="+com/flaurite/addon/headerbutton/web-dispatcher-spring.xml"/>
+        <property name="cuba.windowConfig" value="+com/flaurite/addon/headerbutton/web-screens.xml"/>
+        <property name="cuba.menuConfig" value="+com/flaurite/addon/headerbutton/web-menu.xml"/>
+        <property name="cuba.permissionConfig" value="+com/flaurite/addon/headerbutton/web-permissions.xml"/>
+        <property name="cuba.mainMessagePack" value="+com.flaurite.addon.headerbutton.web"/>
+        <property name="cuba.web.widgetSet" value="com.flaurite.addon.headerbutton.web.toolkit.ui.AppWidgetSet"/>
+    </module>
+    <module name="web-toolkit" dependsOn="web">
+        <artifact name="headerbutton-web-toolkit"/>
+    </module>
+</app-component>
