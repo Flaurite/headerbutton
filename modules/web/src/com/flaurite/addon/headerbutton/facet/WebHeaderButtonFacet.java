@@ -51,11 +51,26 @@ public class WebHeaderButtonFacet extends WebAbstractFacet implements HeaderButt
     }
 
     @Override
+    public void removeButton(HeaderButton headerButton) {
+        removeButton(headerButton.getId());
+    }
+
+    @Override
     public void removeButton(String id) {
         checkAttachedFrame();
 
         if (isDialogScreen())
             headerExtension.removeHeaderButton(id);
+    }
+
+    @Override
+    public boolean contains(HeaderButton headerButton) {
+        return contains(headerButton.getId());
+    }
+
+    @Override
+    public boolean contains(String id) {
+        return headerExtension.contains(id);
     }
 
     @Override

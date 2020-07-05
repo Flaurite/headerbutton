@@ -97,7 +97,26 @@ public interface HeaderButtonFacet extends Facet, HasSubParts {
     /**
      * Removes button by its id
      *
+     * @param headerButton button's id
+     */
+    void removeButton(HeaderButton headerButton);
+
+    /**
+     * Removes button by its id
+     *
      * @param id button's id
      */
     void removeButton(String id);
+
+    /**
+     * @param headerButton button to check
+     * @return true if Facet contains given header button
+     */
+    boolean contains(HeaderButton headerButton);
+
+    /**
+     * @param id header button's id to check
+     * @return true if Facet contains header button with given id
+     */
+    boolean contains(String id);
 }

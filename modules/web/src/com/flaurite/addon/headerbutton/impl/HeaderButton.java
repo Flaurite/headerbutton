@@ -264,6 +264,21 @@ public class HeaderButton extends AttachableButton {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        HeaderButton hButton = (HeaderButton) obj;
+        return id.equals(hButton.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
     public static class ButtonClickEvent extends EventObject {
 
         protected HeaderButton button;

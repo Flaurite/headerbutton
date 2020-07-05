@@ -178,6 +178,18 @@ public class ScreenHeaderExtension extends AbstractExtension {
         }
     }
 
+    /**
+     * @param id header button's id
+     * @return true if header button with given id has already added
+     */
+    public boolean contains(String id) {
+        if (CollectionUtils.isEmpty(hButtons)) {
+            return false;
+        }
+
+        return hButtons.stream().anyMatch(button -> button.getId().equals(id));
+    }
+
     @Override
     protected ScreenHeaderState getState() {
         return (ScreenHeaderState) super.getState();
